@@ -10,5 +10,4 @@ public class TodosimpleApplication {
 		System.out.println("Aloooooooooo");
 		SpringApplication.run(TodosimpleApplication.class, args);
 	}
-
 }
