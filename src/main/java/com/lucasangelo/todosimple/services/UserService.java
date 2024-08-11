@@ -1,9 +1,11 @@
 package com.lucasangelo.todosimple.services;
 
+import com.lucasangelo.todosimple.exceptions.UserExceptions;
 import com.lucasangelo.todosimple.models.User;
 import com.lucasangelo.todosimple.repositories.TaskRepository;
 import com.lucasangelo.todosimple.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.management.RuntimeErrorException;
@@ -26,8 +28,9 @@ public class UserService {
             );
         }
         Optional<User> user = this.userRepository.findById(id);
-        return user.orElseThrow(() -> new RuntimeException(
-                "Usuário não encontrado"
+        return user.orElseThrow(() -> new UserExceptions(
+                "Usuário não encontrado",
+                HttpStatus.NOT_FOUND
         ));
     }
 
@@ -35,8 +38,9 @@ public class UserService {
     public User create(User obj){
         obj.setId(null);
         if(obj.getUsername() == null || obj.getPassword() == null){
-            throw new RuntimeException(
-                    "Campo username e password são obrigatórios"
+            throw new UserExceptions(
+                    "Campo username e password são obrigatórios",
+                    HttpStatus.BAD_REQUEST
             );
         }
         this.userRepository.save(obj);
