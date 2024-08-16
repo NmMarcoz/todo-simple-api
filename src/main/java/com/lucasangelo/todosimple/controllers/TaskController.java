@@ -30,6 +30,7 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<TaskResponse> findById(@PathVariable @Validated Long id){
         System.out.println("Entrou no controller");
+        if(id == null) throw new TaskExceptions("O campo ID é obrigaório", HttpStatus.BAD_REQUEST);
         try{
             Task obj = this.taskService.findById(id);
             return ResponseEntity.ok().body(new TaskResponse("Tarefa localizada", HttpStatus.FOUND, obj, obj.getUser()));

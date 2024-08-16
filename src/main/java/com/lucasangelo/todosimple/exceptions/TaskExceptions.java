@@ -1,7 +1,9 @@
 package com.lucasangelo.todosimple.exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TaskExceptions extends RuntimeException {
     private String message;
     private HttpStatus statusCode;
