@@ -23,8 +23,9 @@ public class UserService {
 
     public User findById(Long id){
         if(id == null){
-            throw new RuntimeException(
-                    "Campo Id é obrigatório"
+            throw new UserExceptions(
+                    "Campo Id é obrigatório",
+                    HttpStatus.BAD_REQUEST
             );
         }
         Optional<User> user = this.userRepository.findById(id);
@@ -64,7 +65,10 @@ public class UserService {
         try{
             this.userRepository.delete(obj);
         }catch (Exception e){
-            throw new RuntimeException("Não é possível, pois há presença de entidades relacionadas no banco");
+            throw new UserExceptions(
+                    "Não é possível, pois há presença de entidades relacionadas no banco",
+                    HttpStatus.BAD_REQUEST
+            );
         }
     }
 }

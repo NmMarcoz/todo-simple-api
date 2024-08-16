@@ -1,6 +1,7 @@
 package com.lucasangelo.todosimple.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class User{
     @Size(groups = {CreateUser.class, UpdateUser.class}, min = 8, max = 60)
     private String password;
     @OneToMany(mappedBy = "user")
+    @JsonProperty(access = Access.WRITE_ONLY)
     private List<Task> tasks = new ArrayList<Task>();
     public User() {
 

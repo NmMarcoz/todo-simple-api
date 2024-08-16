@@ -12,14 +12,14 @@ import java.util.Objects;
 public class Task {
     public static final String TABLE_NAME = "task";
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false, updatable = false)
-    private User user;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true)
-    private long id;
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
+    private User user;
 
     @Column(name = "task_name")
     @NotNull
@@ -36,7 +36,13 @@ public class Task {
 
     }
 
-    public Task(long id, String taskName, String description){
+    public Task(Long id, String taskName, String description){
+        this.id = id;
+        this.taskName = taskName;
+        this.description = description;
+    }
+
+    public Task(Long id, String taskName, String description, User user){
         this.id = id;
         this.taskName = taskName;
         this.description = description;
@@ -63,11 +69,11 @@ public class Task {
         this.user = user;
     }
 
-    public long getId() {
-        return id;
+    public Long getId() {
+        return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
