@@ -28,6 +28,7 @@ public class TaskExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity invalidFieldException(TaskExceptions exception){
         //return ResponseEntityExceptionHandler()
+        ApiError apiError = new ApiError(exception.getMessage());
         return handleExceptionInternal(exception, exception.getMessage(), null, exception.getStatusCode(), null);
     }
 

@@ -62,6 +62,7 @@ public class TaskController {
 //            }
             if(obj.getDescription() == null || obj.getTaskName() == null){
                 System.out.println("Entrou aqui");
+                throw new TaskExceptions("Campo descrição é obrigatório", HttpStatus.BAD_REQUEST);
 
             }
             this.taskService.create(obj);
